@@ -4,7 +4,7 @@ import 'package:keeo_app/KeeoTheme.dart';
 import 'package:keeo_app/SleepJournalEntry.dart';
 import 'package:keeo_app/SleepMetricsPage.dart';
 import 'package:keeo_app/ToDoList.dart';
-import 'package:keeo_app/UpcomingAlarmsCard.dart';
+import 'package:keeo_app/Alarm/UpcomingAlarmsCard.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: _keeoAppBar(),
+        appBar: KeeoTheme.keeoAppBar(),
         body: Center(
             child: Column(
           children: [
@@ -93,19 +93,19 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  PreferredSizeWidget _keeoAppBar() {
-    return AppBar(
-      title: const Text(KeeoTheme.keeoTitle),
-      actions: <Widget>[
-        PopupMenuButton(itemBuilder: (BuildContext context) {
-          return {'Settings', 'About Keeo'}.map((String choice) {
-            return PopupMenuItem<String>(
-              child: Text(choice),
-              value: choice,
-            );
-          }).toList();
-        })
-      ],
-    );
-  }
+  // PreferredSizeWidget _keeoAppBar() {
+  //   return AppBar(
+  //     title: const Text(KeeoTheme.keeoTitle),
+  //     actions: <Widget>[
+  //       PopupMenuButton(itemBuilder: (BuildContext context) {
+  //         return {'Settings', 'About Keeo'}.map((String choice) {
+  //           return PopupMenuItem<String>(
+  //             child: Text(choice),
+  //             value: choice,
+  //           );
+  //         }).toList();
+  //       })
+  //     ],
+  //   );
+  // }
 }
