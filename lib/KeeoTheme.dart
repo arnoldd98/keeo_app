@@ -13,7 +13,7 @@ class KeeoTheme {
             offset: const Offset(3, 3))
       ]);
 
-  static PreferredSizeWidget keeoAppBar() {
+  static AppBar keeoAppBar() {
     return AppBar(
       title: const Text(KeeoTheme.keeoTitle),
       actions: <Widget>[
@@ -30,4 +30,18 @@ class KeeoTheme {
   }
   static const String keeoTitle = 'Keeo';
   static const String ALARM_CLOCK_ICON_HERO_TAG = 'Upcoming Alarms Card';
+  static const String SLEEP_JOURNAL_HERO_TAG = 'Sleep Journal';
+}
+
+class KeeoAppBar extends AppBar {
+  KeeoAppBar({Key? key, required Widget title}) : super(key: key, title: title, actions:<Widget>[
+    PopupMenuButton(itemBuilder: (BuildContext context) {
+      return {'Settings', 'About Keeo'}.map((String choice) {
+        return PopupMenuItem<String>(
+          child: Text(choice),
+          value: choice,
+        );
+      }).toList();
+    })
+  ]);
 }

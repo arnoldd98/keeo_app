@@ -37,27 +37,29 @@ class KeeoPages extends StatelessWidget {
                                   child: FittedBox(
                                     fit: BoxFit.fitHeight,
                                     child: Text(
-                                          titles[listIndex] != ''
+                                      titles[listIndex] != ''
                                           ? titles[listIndex]
                                           : 'No Title',
-                                      style: Theme.of(context).textTheme.headline6,
+                                      style:
+                                          Theme.of(context).textTheme.headline6,
                                     ),
                                   )))),
                       Flexible(flex: 8, child: children[listIndex])
                     ],
                   )));
         });
-    // return PageView.bu(
-    //     scrollDirection: Axis.horizontal,
-    //     controller: controller,
-    //     children: [
-    //       for (Widget page in children)
-    //           Padding(
-    //             padding: const EdgeInsets.all(8),
-    //             child: Container(
-    //                 decoration: KeeoTheme.borderDecoration,
-    //                 child: page),
-    //         )
-    //     ]);
+  }
+}
+
+class OpenPageRoute<T> extends MaterialPageRoute<T> {
+  OpenPageRoute({required WidgetBuilder builder, RouteSettings? settings, required bool fullScreenDialog})
+      : super(builder: builder, settings: settings, fullscreenDialog: fullScreenDialog);
+
+  @override
+  Widget buildTransitions(BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return new FadeTransition(opacity: animation, child: child);
   }
 }

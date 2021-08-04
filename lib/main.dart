@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.brown,
+        primaryColorLight: Colors.brown[120]
       ),
       home: HomePage(),
     );
@@ -31,9 +32,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return
+      Scaffold(
         appBar: KeeoTheme.keeoAppBar(),
+        resizeToAvoidBottomInset: false,
         body: Center(
             child: Column(
           children: [
@@ -82,30 +84,13 @@ class _HomePageState extends State<HomePage> {
                       'Startm deployment': false,
                       'Wash tmhe dishes': false,
                     }),
-                    SleepJournalEntryPage(journalEntry: 'journalEntry'),
+                    SleepJournalEntryCard(journalEntry: 'journalEntry'),
                     SleepMetricsPage.withSampleData(),
                     Center(child: Text('End of Page'))
                   ])),
             ),
           ],
         )),
-      ),
     );
   }
-
-  // PreferredSizeWidget _keeoAppBar() {
-  //   return AppBar(
-  //     title: const Text(KeeoTheme.keeoTitle),
-  //     actions: <Widget>[
-  //       PopupMenuButton(itemBuilder: (BuildContext context) {
-  //         return {'Settings', 'About Keeo'}.map((String choice) {
-  //           return PopupMenuItem<String>(
-  //             child: Text(choice),
-  //             value: choice,
-  //           );
-  //         }).toList();
-  //       })
-  //     ],
-  //   );
-  // }
 }
