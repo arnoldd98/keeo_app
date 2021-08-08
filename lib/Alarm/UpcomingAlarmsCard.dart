@@ -42,13 +42,13 @@ class _UpcomingAlarmsCardState extends State<UpcomingAlarmsCard> {
 
     BoxDecoration borderDecoration = BoxDecoration(
         color: Colors.white,
-        border: Border.all(color: Theme.of(context).accentColor, width: 2),
+        border: Border.all(color: Theme.of(context).accentColor, width: 1.5),
         borderRadius: BorderRadius.all(Radius.circular(10)),
         boxShadow: [
           BoxShadow(
               color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 5,
-              blurRadius: 7,
+              spreadRadius: 2,
+              blurRadius: 4,
               offset: Offset(3, 3))
         ]);
 

@@ -5,14 +5,26 @@ class KeeoTheme {
       color: Colors.white,
       border: Border.all(color: Colors.brown, width: 1),
       borderRadius: BorderRadius.all(Radius.circular(10)),
-      boxShadow: [
-        BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 5,
-            blurRadius: 7,
-            offset: const Offset(3, 3))
-      ]);
-
+      // boxShadow: [
+      //   BoxShadow(
+      //       color: Colors.grey.withOpacity(0.5),
+      //       spreadRadius: 2,
+      //       blurRadius: 3,
+      //       offset: const Offset(2, 5))
+      // ]
+  );
+  static BoxDecoration borderDecorationWithShadow = BoxDecoration(
+    color: Colors.white,
+    border: Border.all(color: Colors.brown, width: 1),
+    borderRadius: BorderRadius.all(Radius.circular(10)),
+    boxShadow: [
+      BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 2,
+          blurRadius: 3,
+          offset: const Offset(2, 5))
+    ]
+  );
   static AppBar keeoAppBar() {
     return AppBar(
       title: const Text(KeeoTheme.keeoTitle),

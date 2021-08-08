@@ -22,44 +22,42 @@ class KeeoPages extends StatelessWidget {
         controller: controller,
         itemBuilder: (context, index) {
           int listIndex = index % children.length;
-          return Padding(
+          return Stack(children: <Widget>[
+            Padding(
               padding: const EdgeInsets.all(8),
               child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
                   decoration: KeeoTheme.borderDecoration,
-                  child: Column(
-                    children: [
-                      Flexible(
-                          flex: 1,
-                          child: Padding(
-                              padding: EdgeInsets.only(top: 10, bottom: 5),
-                              child: FittedBox(
-                                  fit: BoxFit.fitHeight,
-                                  child: FittedBox(
-                                    fit: BoxFit.fitHeight,
-                                    child: Text(
-                                      titles[listIndex] != ''
-                                          ? titles[listIndex]
-                                          : 'No Title',
-                                      style:
-                                          Theme.of(context).textTheme.headline6,
-                                    ),
-                                  )))),
-                      Flexible(flex: 8, child: children[listIndex])
-                    ],
-                  )));
+                  child: children[listIndex]),
+            ),
+            Positioned(
+                left: 35,
+                child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8),
+                    color: Colors.white,
+                    child: Text(
+                      titles[listIndex] != '' ? titles[listIndex] : 'No Title',
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                    )))
+          ]);
         });
   }
 }
 
 class OpenPageRoute<T> extends MaterialPageRoute<T> {
-  OpenPageRoute({required WidgetBuilder builder, RouteSettings? settings, required bool fullScreenDialog})
-      : super(builder: builder, settings: settings, fullscreenDialog: fullScreenDialog);
+  OpenPageRoute(
+      {required WidgetBuilder builder,
+      RouteSettings? settings,
+      required bool fullScreenDialog})
+      : super(
+            builder: builder,
+            settings: settings,
+            fullscreenDialog: fullScreenDialog);
 
   @override
-  Widget buildTransitions(BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child) {
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
     return new FadeTransition(opacity: animation, child: child);
   }
 }

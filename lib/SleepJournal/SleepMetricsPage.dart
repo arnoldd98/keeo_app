@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:keeo_app/SleepDataPoint.dart';
+import 'package:keeo_app/SleepJournal/SleepDataManager.dart';
 
 class SleepMetricsPage extends StatelessWidget {
   final List<charts.Series<SleepDataPoint, DateTime>> dataSeriesList;
