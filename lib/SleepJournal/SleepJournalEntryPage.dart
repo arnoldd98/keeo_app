@@ -7,9 +7,7 @@ import 'package:keeo_app/SleepJournal/SleepJournalList.dart';
 import 'package:keeo_app/SleepJournal/SleepJournalEntryEditor.dart';
 
 class SleepJournalEntryPage extends StatefulWidget {
-  SleepJournalEntry journalEntry;
-
-  SleepJournalEntryPage({required this.journalEntry});
+  SleepJournalEntry _todaysEntry = SleepJournalEntry();
 
   @override
   _SleepJournalEntryPageState createState() => _SleepJournalEntryPageState();
@@ -18,10 +16,19 @@ class SleepJournalEntryPage extends StatefulWidget {
 class _SleepJournalEntryPageState extends State<SleepJournalEntryPage> {
   @override
   Widget build(BuildContext context) {
-    if (SleepJournalEntry.checkIsNullEntry(widget.journalEntry)) {
-      return Padding(
-        padding: const EdgeInsets.all(16),
-        child: Text('You have not yet created an entry for today!'),
+    if (SleepJournalEntry.checkIsNullEntry(widget._todaysEntry)) {
+      return GestureDetector(
+        onVerticalDragEnd: (DragEndDetails details) {
+          // on drag up
+          if (details.primaryVelocity! < 0) _openListOfJournals();
+        },
+        onTap: _openJournalEditor,
+        child: Container(
+          decoration: const BoxDecoration(),
+          padding: const EdgeInsets.all(16),
+          alignment: Alignment.center,
+          child: Text('You have not yet created an entry for today!'),
+        ),
       );
     }
     return Hero(
@@ -34,23 +41,13 @@ class _SleepJournalEntryPageState extends State<SleepJournalEntryPage> {
             child: GestureDetector(
               onVerticalDragEnd: (DragEndDetails details) {
                 // on drag up
-                if (details.primaryVelocity! < 0) {
-                  Navigator.push(
-                      context,
-                      OpenPageRoute(
-                          builder: (context) {
-                            return Scaffold(
-                                appBar: KeeoTheme.keeoAppBar(),
-                                body: SleepJournalEntriesList());
-                          },
-                          fullScreenDialog: true));
-                }
+                if (details.primaryVelocity! < 0) _openListOfJournals();
               },
               behavior: HitTestBehavior.translucent,
               onTap: _openJournalEditor,
               child: Column(
                 children: [
-                  Text(widget.journalEntry.title,
+                  Text(widget._todaysEntry.title,
                       style: Theme.of(context).textTheme.headline5),
                   Container(
                       padding: EdgeInsets.only(top: 8),
@@ -70,27 +67,42 @@ class _SleepJournalEntryPageState extends State<SleepJournalEntryPage> {
           builder: (context) {
             return Scaffold(
               appBar: KeeoTheme.keeoAppBar(),
-              body: SleepJournalEntryEditor(widget.journalEntry),
+              body: SleepJournalEntryEditor(widget._todaysEntry),
             );
           },
           fullScreenDialog: true,
         ));
-    print('edited journal entry: $editedJournalEntry');
-    setState(() {
-      widget.journalEntry = editedJournalEntry;
-    });
+    if (editedJournalEntry != null) {
+      setState(() {
+        widget._todaysEntry = editedJournalEntry;
+      });
+    }
+  }
+
+  void _openListOfJournals() {
+    Navigator.push(
+        context,
+        OpenPageRoute(
+            builder: (context) {
+              return Scaffold(
+                  appBar: KeeoTheme.keeoAppBar(),
+                  body: SleepJournalEntriesList());
+            },
+            fullScreenDialog: true));
   }
 
   Widget _journalEntryText() {
     return Text(
-      widget.journalEntry.entry,
+      widget._todaysEntry.entry,
       style: Theme.of(context).textTheme.bodyText1,
     );
   }
 
   @override
   void initState() {
-    super.initState();
+    SleepDBHelper.getTodaysData().then((SleepJournalEntry entry) {
+      setState(() => widget._todaysEntry = entry);
+    });
   }
 
   @override

@@ -84,7 +84,7 @@ class _SleepJournalEntryEditorState extends State<SleepJournalEntryEditor> {
       },
       onChanged: (text) {
         widget._editedJournalEntry = text;
-        if (text.endsWith(' ') || text.endsWith('\n')) {
+        if (text.endsWith(' ') || text.endsWith('\n') || text.endsWith('.') || text.endsWith(',')) {
           setState(() =>
               widget._wordCount = text.split(RegExp('[\n\r ]+')).length - 1);
         }
